@@ -30,8 +30,6 @@ def sitemap():
     return generate_sitemap(app)
 
 # 1 GET /members
-
-
 @app.route('/members', methods=['GET'])
 def get_members():
 
@@ -39,8 +37,6 @@ def get_members():
     return jsonify('pediste un get', members), 200
 
 # 2 GET /member/<int:member_id>
-
-
 @app.route('/members/<int:member_id>', methods=['GET'])
 def get_member_id(member_id):
 
@@ -56,17 +52,17 @@ def add_member():
     print(response_body)
     return jsonify('has hecho un post', response_body), 200
 
-
-
-# 4 DELETE /member/<int:member_id>  VER!!!!!!!!!!!
-
+# 4 DELETE /member/<int:member_id>
 
 @app.route('/members/<int:member_id>', methods=['DELETE'])
 def del_member(member_id):
+    deleted_member = jackson_family.get_member(member_id)
+
+    if deleted_member is None:
+       return jsonify({'error': f'no existe el id: {member_id}'}), 400
 
     jackson_family.delete_member(member_id)
-    print(member_id)
-    return jsonify('has borrado el member', member_id)
+    return jsonify({'msg': f'has borrado el member: {member_id}'}), 200
 
 
 # this only runs if `$ python src/app.py` is executed
@@ -74,6 +70,7 @@ if __name__ == '__main__':
     PORT = int(os.environ.get('PORT', 3000))
     app.run(host='0.0.0.0', port=PORT, debug=True)
 
+# para trabajar desde la terminal
     personas = [
         {
             "first_name": "John",

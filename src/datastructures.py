@@ -18,23 +18,23 @@ class FamilyStructure:
         self._members = [
             {
                 "id": self._generateId(),
-                "first_name": "Sergio",
+                "first_name": "Angie",
                 "last_name": self.last_name,
-                "age": 33,
+                "age": 15,
                 "lucky_numbers": [7, 13, 22]
             },
             {
                 "id": self._generateId(),
-                "first_name": "Alfonso",
+                "first_name": "Michael",
                 "last_name": self.last_name,
-                "age": 30,
-                "lucky_numbers": [10, 14, 3]
+                "age": 15,
+                "lucky_numbers": [1, 2, 3]
             },
             {
                 "id": self._generateId(),
-                "first_name": "Abraham",
+                "first_name": "Negrito",
                 "last_name": self.last_name,
-                "age": 27,
+                "age": 10,
                 "lucky_numbers": [1, 2]
             }
 
@@ -68,15 +68,17 @@ class FamilyStructure:
     def delete_member(self, id):
         for member in self._members:
             if member['id'] == id:
-                return self._members.remove(member)
-        return {'msg': f'{member} fue eliminado'}
+                self._members.remove(member)
+                return None
+        return {'error': f'el miembro con id: {member} no existe'}
 
     def get_member(self, id):
 
         for member in self._members:
             if member['id'] == id:
                 return member
-        return {'msg': f'{id} no existe'}
+        return None
+        #return {'msg': f'el id:{id} no existe'}
 
     # this method is done, it returns a list with all the family members
     def get_all_members(self):
